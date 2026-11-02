@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Studio Ghibli US Pop-up: Jiji Special Campaign</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+            rel="stylesheet" />
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                background-color: #171724;
+                font-family: "Plus Jakarta Sans", sans-serif;
+                overflow-x: hidden;
+                position: relative;
+                line-height: 1.6;
+            }
+
+            /* 별 배경 효과 */
+            .stars-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                pointer-events: none;
+                z-index: 0;
+                overflow: hidden;
+            }
+
+            .star {
+                position: absolute;
+                background-color: #ffffff;
+                border-radius: 50%;
+                animation: twinkle var(--duration, 3s) infinite ease-in-out var(--delay, 0s);
+            }
+
+            @keyframes twinkle {
+                0%,
+                100% {
+                    opacity: 0.1;
+                    transform: scale(0.8);
+                }
+                50% {
+                    opacity: 0.9;
+                    transform: scale(1.3);
+                    box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+                }
+            }
+
+            /* 레이아웃 & 템플릿 스타일 */
+            .container {
+                max-width: 960px;
+                margin: 0 auto;
+                padding: 60px 24px 160px 24px;
+                position: relative;
+                z-index: 1;
+            }
+
+            /* Header Area */
+            header {
+                text-align: center;
+                margin-bottom: 40px;
+            }
+
+            .jiji-avatar {
+                width: 72px;
+                height: 72px;
+                border-radius: 50%;
+                background: #1e293b;
+                border: 2px solid var(--card-border);
+                margin: 0 auto 20px auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 32px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            }
+
+            h1 {
+                font-family: "Playfair Display", serif;
+                font-size: 2.7rem;
+                font-weight: 700;
+                color: #ffffff;
+                margin-bottom: 8px;
+                letter-spacing: -0.5px;
+            }
+
+            .subtitle {
+                color: #e5bd7a;
+                font-size: 0.95rem;
+                margin-bottom: 32px;
+                font-weight: 500;
+            }
+
+            /* Meta Box */
+            .meta-grid {
+                background: #1a233ab3;
+                border: 1px solid #263352;
+                border-radius: 12px;
+                padding: 24px;
+                display: grid;
+                gap: 16px 32px;
+                text-align: left;
+                margin-bottom: 40px;
+                /* backdrop-filter: blur(8px);*/
+            }
+
+            .meta-item {
+                font-size: 0.88rem;
+            }
+
+            .meta-label {
+                color: #e5bd7a;
+                font-weight: 700;
+                margin-right: 6px;
+            }
+
+            .meta-value {
+                color: #cbd5e1;
+                font-weight: 500;
+            }
+
+            /* Info Card Section */
+            .info-card {
+                background: #1a233a;
+                border: 1px solid #263352;
+                border-radius: 16px;
+                padding: 32px;
+                margin-bottom: 28px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            }
+
+            .section-title {
+                font-family: "Playfair Display", serif;
+                font-size: 1.6rem;
+                color: #ffffff;
+                margin-bottom: 20px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .sub-heading {
+                color: #e5bd7a;
+                font-size: 0.95rem;
+                font-weight: 700;
+                margin: 16px 0 8px 0;
+            }
+
+            .info-card p {
+                color: #cbd5e1;
+                font-size: 0.93rem;
+                line-height: 1.6;
+                margin-bottom: 12px;
+            }
+
+            .info-card ul {
+                list-style: none;
+            }
+
+            .info-card li {
+                position: relative;
+                padding-left: 18px;
+                color: #cbd5e1;
+                font-size: 0.92rem;
+                margin-bottom: 8px;
+                line-height: 1.6;
+            }
+
+            .info-card li::before {
+                content: "•";
+                position: absolute;
+                left: 4px;
+                color: #e5bd7a;
+            }
+
+            /* Deliverables Title */
+            .deliverables-header {
+                font-family: "Playfair Display", serif;
+                font-size: 1.8rem;
+                color: #ffffff;
+                margin: 48px 0 24px 0;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+
+            /* Gallery Grid */
+            .gallery-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 450px);
+                gap: 20px;
+            }
+
+            .card {
+                background: #1a233ab3;
+                border: 1px solid #263352;
+                border-radius: 12px;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .card-preview {
+                height: 180px;
+                background: #111827;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                border-bottom: 1px solid #263352;
+            }
+
+            /* Card 1 Dual Posters */
+            .poster-split {
+                display: flex;
+                width: 100%;
+                height: 100%;
+            }
+
+            .poster-item {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.9rem;
+                font-weight: 600;
+                color: #cbd5e1;
+                background: #0f172a99;
+            }
+
+            .poster-item:first-child {
+                border-right: 1px solid #263352;
+            }
+
+            /* Icon Previews for Card 2 & 3 */
+            .icon-preview {
+                font-size: 2.5rem;
+                color: #e5bd7a;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .icon-preview span {
+                font-size: 0.75rem;
+                color: #e5bd7a;
+                font-family: "Plus Jakarta Sans", sans-serif;
+                font-weight: 600;
+            }
+
+            .card-body {
+                padding: 20px;
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .card-title {
+                font-family: "Playfair Display", serif;
+                font-size: 1.2rem;
+                color: #ffffff;
+                margin-bottom: 12px;
+                font-weight: 700;
+            }
+
+            .card-list {
+                list-style: none;
+                padding: 0;
+                margin-bottom: 16px;
+            }
+
+            .card-list li {
+                font-size: 0.82rem;
+                color: #cbd5e1;
+                margin-bottom: 8px;
+                line-height: 1.5;
+                position: relative;
+                padding-left: 12px;
+            }
+
+            .card-list li::before {
+                content: "•";
+                position: absolute;
+                left: 0;
+                color: #e5bd7a;
+            }
+
+            .card-list strong {
+                color: #ffffff;
+            }
+
+            .card-tags {
+                margin-top: auto;
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+
+            .tag {
+                font-size: 0.72rem;
+                padding: 4px 10px;
+                border-radius: 6px;
+                font-weight: 600;
+            }
+
+            .tag-marketing {
+                background: #e11d4833;
+                color: #fda4af;
+            }
+            .tag-visual {
+                background: #10b98133;
+                color: #6ee7b7;
+            }
+            .tag-program {
+                background: #d9770633;
+                color: #fcd34d;
+            }
+            .tag-event {
+                background: #9333ea33;
+                color: #e1c5ff;
+            }
+            .tag-digital {
+                background: #2563eb33;
+                color: #93c5fd;
+            }
+            .tag-ooh {
+                background: #0d948833;
+                color: #5eead4;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- 반짝이는 별 배경 -->
+        <div class="stars-container" id="starsContainer"></div>
+
+        <!-- 본문 컨테이너 -->
+        <div class="container">
+            <header>
+                <div class="jiji-avatar">🐈‍⬛</div>
+                <h1>
+                    Studio Ghibli US Pop-up: <br />
+                    Jiji Special Campaign
+                </h1>
+                <p class="subtitle">Del Amo Fashion Center, Torrance, CA (2026) Official Concept Portfolio</p>
+
+                <div class="meta-grid">
+                    <div class="meta-item">
+                        <span class="meta-label">Campaign Title:</span>
+                        <span class="meta-value">Your Special Delivery Has Arrived: Jiji's Special Invitation to Ghibli</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Role:</span>
+                        <span class="meta-value">Digital Marketing Strategy &amp; Visual Concept Design</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Project Type:</span>
+                        <span class="meta-value">Personal Concept Project</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Target Brand:</span>
+                        <span class="meta-value">VIZ Media &amp; Studio Ghibli Official US Pop-up</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Executive Summary -->
+            <section class="info-card">
+                <h2 class="section-title">💡 Executive Summary</h2>
+                <div class="sub-heading">Background</div>
+                <p>
+                    Developed a character-focused marketing strategy to maximize local fans' desire to collect and generate viral buzz, timed with the
+                    first-ever official Studio Ghibli pop-up store opening in the US.
+                </p>
+
+                <div class="sub-heading">Key Differentiator</div>
+                <ul>
+                    <li>
+                        Selected "Jiji" from <em>Kiki's Delivery Service</em> as the beloved mascot with strong appeal to both mainstream and hardcore fans.
+                    </li>
+                    <li>
+                        Applied an immersive storytelling concept where Jiji delivers a "special invitation" to guide US fans directly into the offline pop-up
+                        store, moving beyond simple merchandise sales.
+                        <br />
+                        (*This campaign focuses on offline visits and experiences, and is unrelated to physical delivery/shipping services.)
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Target & Audience Insight -->
+            <section class="info-card">
+                <h2 class="section-title">🎯 Target &amp; Audience Insight</h2>
+                <div class="sub-heading">Primary Target</div>
+                <p>US-based fans in their 20-30s of animation and Studio Ghibli, as well as enthusiasts of emotional healing IPs and cat characters.</p>
+
+                <div class="sub-heading">Key Insight</div>
+                <ul>
+                    <li>A pop-up store is more than just a retail space; it is an experience of "stepping directly into the world of the film.</li>
+                    <li>
+                        Utilizing Jiji loved for being Kiki's reliable companion and witty lines creates immediate familiarity and high collectibility for local
+                        fans.
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Visual Strategy & Deliverables -->
+            <h2 class="deliverables-header">🎨 Visual Strategy &amp; Deliverables</h2>
+            <div class="gallery-grid">
+                <!-- Card 1 -->
+                <div class="card">
+                    <div class="card-preview">
+                        <div class="poster-split">
+                            <div class="poster-item"><img src="jiji_poster1.png" style="width: 60%"/></div>
+                            <div class="poster-item"><img src="jiji_poster2.png" style="width: 60%"/></div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">1. Poster</h3>
+                        <p style="font-size: 0.83rem; color: #94a3b8; margin-bottom: 16px">
+                            Teaser visual &amp; Kiki's Broom concept artwork designed to evoke nostalgic warmth and excitement for the US grand opening.
+                        </p>
+                        <div class="card-tags">
+                            <span class="tag tag-marketing">Marketing</span>
+                            <span class="tag tag-visual">VisualConcept</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card">
+                    <div class="card-preview">
+                        <div class="icon-preview">
+                            🏪
+                            <span>Store Experience &amp; Retail Flow</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">2. On-site Event &amp; Operation Strategy</h3>
+                        <ul class="card-list">
+                            <li><strong>Stamp Tour:</strong> Interactive store exploration to increase dwell time.</li>
+                            <li><strong>Merch Perks:</strong> Signature tote bags & cinema bookmark rewards for milestone spenders.</li>
+                            <li><strong>Traffic Control:</strong> Seasonal phase planning to manage peak capacity.</li>
+                        </ul>
+                        <div class="card-tags">
+                            <span class="tag tag-program">ProgramManagement</span>
+                            <span class="tag tag-event">EventStrategy</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 스크립트: 별 생성  -->
+        <script>
+            // 반짝이는 별 동적 생성
+            const starsContainer = document.getElementById("starsContainer");
+            const starCount = 80;
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement("div");
+                star.className = "star";
+
+                // 랜덤 크기, 위치, 애니메이션 속도 설정
+                const size = Math.random() * 2.5 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.setProperty("--duration", `${Math.random() * 3 + 2}s`);
+                star.style.setProperty("--delay", `${Math.random() * 3}s`);
+
+                starsContainer.appendChild(star);
+            }
+        </script>
+    </body>
+</html>

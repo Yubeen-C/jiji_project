@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Studio Ghibli US Pop-up: Jiji Special Campaign</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+            rel="stylesheet" />
+        <style>
+            body {
+                background-color: #171724;
+                font-family: "Plus Jakarta Sans", sans-serif;
+                overflow-x: hidden;
+                position: relative;
+                line-height: 1.6;
+            }
+
+            h1 {
+                color: #ffffff;
+            }
+
+            /* 별 배경 효과 */
+            .stars-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                pointer-events: none;
+                z-index: 0;
+                overflow: hidden;
+            }
+
+            .star {
+                position: absolute;
+                background-color: #ffffff;
+                border-radius: 50%;
+                animation: twinkle var(--duration, 3s) infinite ease-in-out var(--delay, 0s);
+            }
+
+            @keyframes twinkle {
+                0%,
+                100% {
+                    opacity: 0.1;
+                    transform: scale(0.8);
+                }
+                50% {
+                    opacity: 0.9;
+                    transform: scale(1.3);
+                    box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Poster</h1>
+        <img src="jiji_poster1.png" width="200px" />
+        <img src="jiji_poster2.png" width="200px" />
+
+        <!-- 반짝이는 별 배경 -->
+        <div class="stars-container" id="starsContainer"></div>
+
+        <!-- 스크립트: 별 생성  -->
+        <script>
+            // 반짝이는 별 동적 생성
+            const starsContainer = document.getElementById("starsContainer");
+            const starCount = 80;
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement("div");
+                star.className = "star";
+
+                // 랜덤 크기, 위치, 애니메이션 속도 설정
+                const size = Math.random() * 2.5 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.setProperty("--duration", `${Math.random() * 3 + 2}s`);
+                star.style.setProperty("--delay", `${Math.random() * 3}s`);
+
+                starsContainer.appendChild(star);
+            }
+        </script>
+    </body>
+</html>
